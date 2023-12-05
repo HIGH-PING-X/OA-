@@ -16,12 +16,12 @@
     <packaging>pom</packaging>
     <modules>
         <module>oa-common</module>
-        <module>oa-model</module>
         <module>oa-service</module>
         <module>oa-model</module>
     </modules>
 
     <dependencies>
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -52,6 +52,7 @@
             <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
