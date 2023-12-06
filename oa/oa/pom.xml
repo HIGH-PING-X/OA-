@@ -14,11 +14,6 @@
     <artifactId>oa</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <modules>
-        <module>oa-common</module>
-        <module>oa-service</module>
-        <module>oa-model</module>
-    </modules>
 
     <dependencies>
 
