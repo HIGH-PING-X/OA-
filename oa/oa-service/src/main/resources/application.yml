@@ -16,3 +16,7 @@ spring:
     url: jdbc:mysql://localhost:3306/oa-separation?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
     password: '0000'
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
