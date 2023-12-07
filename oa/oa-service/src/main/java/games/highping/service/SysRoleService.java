@@ -2,6 +2,9 @@ package games.highping.service;
 
 import games.highping.bean.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import games.highping.utils.vo.AssginRoleVo;
+
+import java.util.Map;
 
 /**
 * @author HIGH-
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SysRoleService extends IService<SysRole> {
 
+    Map<String, Object> findRoleDataByUserId(Long userId);
+
+    void doAssign(AssginRoleVo assginRoleVo);
 }
