@@ -122,4 +122,12 @@ public class SysUserController {
             return Result.fail();
         }
     }
+
+    @ApiOperation(value = "更新状态")
+    @GetMapping("/updateStatus/{id}/{status}")
+    public Result updateStatus(@PathVariable Long id, @PathVariable Integer status){
+        sysUserService.updateStatus(id, status);
+        return Result.ok();
+    }
+
 }
