@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import games.highping.bean.SysUser;
 import games.highping.service.SysUserService;
+import games.highping.utils.encryption.MD5;
 import games.highping.utils.result.Result;
 import games.highping.utils.vo.SysUserQueryVo;
 import io.swagger.annotations.Api;
@@ -99,6 +100,9 @@ public class SysUserController {
     @ApiOperation("添加用户")
     @PostMapping("/save")
     public Result save(@RequestBody SysUser sysUser){
+        // 密码加密
+        String passwordMD5 = MD5.encrypt(sysUser.getPassword());
+        sysUser.setPassword(passwordMD5);
         boolean is_success = sysUserService.save(sysUser);
         if (is_success) {
             return Result.ok();
