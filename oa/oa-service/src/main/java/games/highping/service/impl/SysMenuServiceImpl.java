@@ -7,14 +7,17 @@ import games.highping.bean.SysRoleMenu;
 import games.highping.mapper.SysRoleMenuMapper;
 import games.highping.service.SysMenuService;
 import games.highping.mapper.SysMenuMapper;
-import games.highping.service.SysRoleMenuService;
 import games.highping.utils.MenuHelper;
 import games.highping.utils.vo.AssginMenuVo;
+import games.highping.utils.vo.MetaVo;
+import games.highping.utils.vo.RouterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,6 +85,86 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             sysRoleMenuMapper.insert(rolePermission);
         }
     }
+
+    @Override
+    public List<RouterVo> findUserMenuListByUserId(Long userId) {
+        List<SysMenu> sysMenuList = null;
+        //判断用户是否是超级管理员
+        if (userId.longValue() == 1) {
+            LambdaQueryWrapper<SysMenu> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(SysMenu::getStatus,1);
+            wrapper.orderByAsc(SysMenu::getSortValue);
+            sysMenuList = baseMapper.selectList(wrapper);
+        } else {
+            sysMenuList = baseMapper.findMenuListByUserId(userId);
+        }
+        //把查询出来的菜单列表转换成要求的路由列表
+        List<SysMenu> sysMenuTreeList = MenuHelper.buildTree(sysMenuList);
+        List<RouterVo> routerList = this.buildRouter(sysMenuTreeList);
+        return routerList;
+    }
+
+    private List<RouterVo> buildRouter(List<SysMenu> menus) {
+        List<RouterVo> routers = new ArrayList<>();
+        for(SysMenu menu : menus) {
+            RouterVo router = new RouterVo();
+            router.setHidden(false);
+            router.setAlwaysShow(false);
+            router.setPath(getRouterPath(menu));
+            router.setComponent(menu.getComponent());
+            router.setMeta(new MetaVo(menu.getName(), menu.getIcon()));
+            List<SysMenu> children = menu.getChildren();
+            if(menu.getType().intValue() == 1) {
+                List<SysMenu> hiddenMenuList = children.stream()
+                        .filter(item -> !StringUtils.isEmpty(item.getComponent()))
+                        .collect(Collectors.toList());
+                for (SysMenu hiddenMenu : hiddenMenuList) {
+                    RouterVo hiddenRouter = new RouterVo();
+                    hiddenRouter.setHidden(true);
+                    hiddenRouter.setAlwaysShow(false);
+                    hiddenRouter.setPath(getRouterPath(hiddenMenu));
+                    hiddenRouter.setComponent(hiddenMenu.getComponent());
+                    hiddenRouter.setMeta(new MetaVo(hiddenMenu.getName(), hiddenMenu.getIcon()));
+                    routers.add(hiddenRouter);
+                }
+            } else {
+                if(!CollectionUtils.isEmpty(children)) {
+                    if (children.size() > 0) {
+                        router.setAlwaysShow(true);
+                    }
+                    router.setChildren(buildRouter(children));
+                }
+            }
+            routers.add(router);
+        }
+        return routers;
+    }
+
+    public String getRouterPath(SysMenu menu) {
+        String routerPath = "/" + menu.getPath();
+        if(menu.getParentId().intValue() != 0) {
+            routerPath = menu.getPath();
+        }
+        return routerPath;
+    }
+
+    @Override
+    public List<String> findUserPermsByUserId(Long userId) {
+        //判断用户是否是超级管理员
+        List<SysMenu> sysMenuList = null;
+        if (userId.longValue() == 1) {
+            LambdaQueryWrapper<SysMenu> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(SysMenu::getStatus,1);
+            sysMenuList = baseMapper.selectList(wrapper);
+        } else {
+            sysMenuList = baseMapper.findMenuListByUserId(userId);
+        }
+        return sysMenuList.stream()
+                .filter(item -> item.getType() == 2)
+                .map(item -> item.getPerms())
+                .collect(Collectors.toList());
+    }
+
 }
 
 
