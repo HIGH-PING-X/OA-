@@ -9,6 +9,7 @@ import games.highping.utils.result.Result;
 import games.highping.service.SysRoleService;
 import games.highping.utils.vo.AssginRoleVo;
 import games.highping.utils.vo.SysRoleQueryVo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@Api(tags = "角色管理接口")
 @RestController
 @RequestMapping("/admin/system/sysRole")
 public class SysRoleController {
