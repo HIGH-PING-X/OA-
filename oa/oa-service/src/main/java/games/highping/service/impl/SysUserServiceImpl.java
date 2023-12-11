@@ -1,5 +1,6 @@
 package games.highping.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import games.highping.bean.SysUser;
 import games.highping.service.SysUserService;
@@ -33,7 +34,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 调用方法进行修改
         baseMapper.updateById(sysUser);
     }
-    
+
+    @Override
+    public SysUser getByUsername(String username) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getUsername, username);
+        return baseMapper.selectOne(queryWrapper);
+    }
+
 }
 
 
