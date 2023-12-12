@@ -36,3 +36,9 @@ spring:
         max-wait: -1
         max-idle: 5
         min-idle: 0
+
+  activiti:
+    database-schema-update: true #自动创建表
+    db-history-used: true #启用历史数据表
+    history-level: full #启用历史数据级别
+    check-process-definitions: true #是否检查流程定义的正确性
