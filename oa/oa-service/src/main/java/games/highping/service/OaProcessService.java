@@ -1,7 +1,9 @@
 package games.highping.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import games.highping.bean.OaProcess;
 import com.baomidou.mybatisplus.extension.service.IService;
+import games.highping.utils.vo.ProcessQueryVo;
 
 /**
 * @author HIGH-
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface OaProcessService extends IService<OaProcess> {
 
+    Object selectPage(Page<OaProcess> pageParam, ProcessQueryVo processQueryVo);
 }
