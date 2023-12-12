@@ -1,5 +1,6 @@
 package games.highping.security;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import games.highping.utils.CustomUser;
 import games.highping.utils.jwt.JwtConfig;
@@ -7,6 +8,8 @@ import games.highping.utils.result.ResponseUtil;
 import games.highping.utils.result.Result;
 import games.highping.utils.result.ResultCodeEnum;
 import games.highping.utils.vo.LoginVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,11 +26,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
-    public TokenLoginFilter(AuthenticationManager authenticationManager) {
+
+    private RedisTemplate redisTemplate;
+
+    public TokenLoginFilter(AuthenticationManager authenticationManager, RedisTemplate redisTemplate) {
         this.setAuthenticationManager(authenticationManager);
         this.setPostOnly(false);
         //指定登录接口及提交方式，可以指定任意路径
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/admin/system/index/login","POST"));
+        this.redisTemplate = redisTemplate;
     }
 
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -43,6 +50,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) throws IOException, ServletException {
         CustomUser customUser = (CustomUser) auth.getPrincipal();
         String token = JwtConfig.createToken(customUser.getSysUser().getId(), customUser.getSysUser().getUsername());
+        redisTemplate.opsForValue().set(customUser.getSysUser().getUsername(), JSON.toJSONString(customUser.getAuthorities()));
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
         ResponseUtil.out(response, Result.ok(map));
