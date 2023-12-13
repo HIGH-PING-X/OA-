@@ -33,6 +33,8 @@ public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateM
     private OaProcessTypeService processTypeService;
     @Autowired
     private OaProcessService processService;
+    @Autowired
+    private OaProcessService oaProcessService;
 
     //分页查询审批模板，把审批类型对应名称查询
     @Override
@@ -64,6 +66,10 @@ public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateM
         OaProcessTemplate processTemplate = this.getById(id);
         processTemplate.setStatus(1);
         baseMapper.updateById(processTemplate);
+
+        if (!StringUtils.isEmpty(processTemplate.getProcessDefinitionPath())) {
+            processService.deployByZip(processTemplate.getProcessDefinitionPath());
+        }
     }
 
 }
