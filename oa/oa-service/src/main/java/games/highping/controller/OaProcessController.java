@@ -1,5 +1,6 @@
 package games.highping.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import games.highping.bean.OaProcess;
 import games.highping.service.OaProcessService;
@@ -7,10 +8,7 @@ import games.highping.utils.result.Result;
 import games.highping.utils.vo.ProcessQueryVo;
 import games.highping.utils.vo.ProcessVo;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.activiti.bpmn.model.Process;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +25,9 @@ public class OaProcessController {
     @ApiOperation(value = "获取分页列表")
     @GetMapping("{page}/{limit}")
     public Result index(@PathVariable Long page, @PathVariable Long limit, ProcessQueryVo processQueryVo) {
-        Page<OaProcess> pageParam = new Page<>(page, limit);
-        return Result.ok(oaProcessService.selectPage(pageParam, processQueryVo));
+        Page<ProcessVo> pageParam = new Page<>(page, limit);
+        IPage<ProcessVo> pageModel = oaProcessService.selectPage(pageParam, processQueryVo);
+        return Result.ok(pageModel);
     }
 
 }
