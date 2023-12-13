@@ -22,5 +22,6 @@ public class ProcessController {
     public Result findProcessType() {
         return Result.ok(oaProcessTypeService.findProcessType());
     }
-
+"node-sass": "^9.0.0",
+"sass-loader": "^13.3.2",
 }
