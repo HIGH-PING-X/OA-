@@ -2,7 +2,6 @@ package games.highping.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import games.highping.bean.OaProcessTemplate;
@@ -16,10 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
 * @author HIGH-
@@ -30,9 +26,7 @@ import java.util.stream.Collectors;
 public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateMapper, OaProcessTemplate> implements OaProcessTemplateService {
 
     @Autowired
-    private OaProcessTypeService processTypeService;
-    @Autowired
-    private OaProcessService processService;
+    private OaProcessTypeService oaProcessTypeService;
     @Autowired
     private OaProcessService oaProcessService;
 
@@ -50,7 +44,7 @@ public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateM
             //4 根据审批类型id，查询获取对应名称
             LambdaQueryWrapper<OaProcessType> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(OaProcessType::getId,processTypeId);
-            OaProcessType processType = processTypeService.getOne(wrapper);
+            OaProcessType processType = oaProcessTypeService.getOne(wrapper);
             if(processType == null) {
                 continue;
             }
@@ -68,7 +62,7 @@ public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateM
         baseMapper.updateById(processTemplate);
 
         if (!StringUtils.isEmpty(processTemplate.getProcessDefinitionPath())) {
-            processService.deployByZip(processTemplate.getProcessDefinitionPath());
+            oaProcessService.deployByZip(processTemplate.getProcessDefinitionPath());
         }
     }
 

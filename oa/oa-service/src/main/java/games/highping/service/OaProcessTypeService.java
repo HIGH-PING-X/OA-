@@ -3,6 +3,8 @@ package games.highping.service;
 import games.highping.bean.OaProcessType;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author HIGH-
 * @description 针对表【oa_process_type(审批类型)】的数据库操作Service
@@ -10,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface OaProcessTypeService extends IService<OaProcessType> {
 
-    Object findProcessType();
+//    List<OaProcessType> findProcessType();
 }
