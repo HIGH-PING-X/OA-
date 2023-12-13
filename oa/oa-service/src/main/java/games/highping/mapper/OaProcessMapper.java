@@ -1,7 +1,12 @@
 package games.highping.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import games.highping.bean.OaProcess;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import games.highping.utils.vo.ProcessQueryVo;
+import games.highping.utils.vo.ProcessVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author HIGH-
@@ -10,6 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity games.highping.bean.OaProcess
 */
 public interface OaProcessMapper extends BaseMapper<OaProcess> {
+
+    IPage<ProcessVo> selectPage(Page<ProcessVo> pageParam, @Param("vo") ProcessQueryVo processQueryVo);
 
 }
 
