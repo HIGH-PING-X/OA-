@@ -4,7 +4,7 @@
 
     <el-dialog title="绑定手机" :visible.sync="dialogVisible" width="80%" >
       <el-form ref="dataForm" :model="bindPhoneVo" size="small">
-        <h4>绑定你的手机号，建立云尚办公系统关联关系</h4>
+        <h4>绑定你的手机号，建立办公系统关联关系</h4>
         <el-form-item label="手机号码">
           <el-input v-model="bindPhoneVo.phone"/>
         </el-form-item>
@@ -29,10 +29,10 @@ export default {
     };
   },
 
-  created() {
-    // 处理微信授权登录
-    this.wechatLogin();
-  },
+  // created() {
+  //   // 处理微信授权登录
+  //   this.wechatLogin();
+  // },
 
   methods: {
     clear() {
