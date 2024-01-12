@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import games.highping.bean.OaProcess;
 import com.baomidou.mybatisplus.extension.service.IService;
+import games.highping.utils.vo.ProcessFormVo;
 import games.highping.utils.vo.ProcessQueryVo;
 import games.highping.utils.vo.ProcessVo;
 
@@ -15,5 +16,10 @@ import games.highping.utils.vo.ProcessVo;
 public interface OaProcessService extends IService<OaProcess> {
 
     IPage<ProcessVo> selectPage(Page<ProcessVo> pageParam, ProcessQueryVo processQueryVo);
+
     void deployByZip(String deployPath);
+
+    void startUp(ProcessFormVo processFormVo);
+
+    Page<ProcessVo> findPending(Page<OaProcess> pageParam);
 }
