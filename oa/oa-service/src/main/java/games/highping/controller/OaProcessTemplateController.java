@@ -21,6 +21,7 @@ import java.util.Map;
 
 @Api(tags = "审批模板管理")
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/admin/process/processTemplate")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class OaProcessTemplateController {
@@ -77,12 +78,12 @@ public class OaProcessTemplateController {
     @PostMapping("/uploadProcessDefinition")
     public Result uploadProcessDefinition(MultipartFile file) throws FileNotFoundException {
         String path = new File(ResourceUtils.getURL("classpath:").getPath()).getAbsolutePath();
-        File tempFile = new File(path + "/process/");
+        File tempFile = new File(path + "/processes/");
         if (!tempFile.exists()) {
             tempFile.mkdirs();
         }
         String fileName = file.getOriginalFilename();
-        File zipFile = new File(path + "/process/" + fileName);
+        File zipFile = new File(tempFile.getPath()+"/"+fileName);
         try {
             file.transferTo(zipFile);
         } catch (IOException e) {
