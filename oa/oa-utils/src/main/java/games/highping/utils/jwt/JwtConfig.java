@@ -50,11 +50,11 @@ public class JwtConfig {
     }
 
 //    测试获取token中的信息
-//    public static void main(String[] args) {
-//        String token = JwtConfig.createToken(1L, "admin");
-//        System.out.println(token);
-//        System.out.println(JwtConfig.getUserId(token));
-//        System.out.println(JwtConfig.getUsername(token));
-//    }
+    public static void main(String[] args) {
+        String token = JwtConfig.createToken(12L, "highping");
+        System.out.println(token);
+        System.out.println(JwtConfig.getUserId(token));
+        System.out.println(JwtConfig.getUsername(token));
+    }
 
 }
