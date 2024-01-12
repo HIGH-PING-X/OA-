@@ -11,6 +11,5 @@ import java.util.List;
 * @createDate 2023-12-12 14:57:49
 */
 public interface OaProcessTypeService extends IService<OaProcessType> {
-
-//    List<OaProcessType> findProcessType();
+    List<OaProcessType> findProcessType();
 }
