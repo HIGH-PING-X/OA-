@@ -22,7 +22,7 @@ export default {
     },
     subTitle: {
       type: String,
-      default: '硅谷审批'
+      default: '审批'
     },
     desc: {
       type: String,
