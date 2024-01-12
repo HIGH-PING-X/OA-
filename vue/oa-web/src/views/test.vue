@@ -1,9 +1,8 @@
 <template>
   <div>
     <div>账号切换</div>
-    <button @click="zhangsan()" type="default" size="mini">张三</button>
-    <button @click="lisi()" type="default" size="mini">李四</button>
-    <button @click="zzjl()" type="default" size="mini">张总经理</button>
+    <button @click="noob()" type="default" size="mini">noob</button>
+    <button @click="highping()" type="default" size="mini">highping</button>
     <button @click="admin()" type="default" size="mini">admin</button>
     <div>当前token：{{ token }}</div>
   </div>
@@ -26,28 +25,21 @@ export default {
   methods: {
     admin() {
       window.localStorage.setItem('token', '');
-      let token = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJScgwN8dANDXYNUtJRSq0oULIyNDM3tzQxNDM01VEqLU4t8kwBikGYeYm5qUAtiSm5mXlKtQAjn-tfQgAAAA.dKczZ7BKISa_s3zV1VxVN2Yk7bSqRawbIUp1GVXDhpxD4n-jbrE-3UmruA_MM47H_OcLODk1R2TxI6HTPxnA-Q'
+      let token = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJScgwN8dANDXYNUtJRSq0oULIyNDcwMzW0sDQ11FEqLU4t8kwBikGYeYm5qUAtiSm5mXlKtQADZEv_QgAAAA.HyWfch-DlOSuUZfxY4ib1BGQozdFQ4r5YOXZPnAq4YHQr9nwGVX3FRmSVaBbcMgtY5mUFxrKO7TyGeK0WMpo6g'
       window.localStorage.setItem('token', token);
       this.token = window.localStorage.getItem('token')
     },
 
-    zhangsan() {
+    noob() {
       window.localStorage.setItem('token', '');
-      let token = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJScgwN8dANDXYNUtJRSq0oULIyNDM3tzQxNLMw1VEqLU4t8kxRsjKHMPMSc1OBWqoyEvPSjZVqAZJgwolDAAAA.eAGrymiYi_6Sb4KK3huGbxWXbu6DdLDQT1sGZUDaLa-OzUZTQhlEG9yS3LOjJEztmIJxAJvH5StubFlyzyqqhg'
+      let token = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJScgwN8dANDXYNUtJRSq0oULIyNDcwMzW0sDA31lEqLU4t8kwBiUHYeYm5qUA9efn5SUq1APLS1uJCAAAA.npDO425Zb72ftgFpEY1e1A2roubSPR398639TPXn3Ph6pxaXF0TgaAdOfFylQxHL2nPRK-wY8eStW0y8J2QHMw'
       window.localStorage.setItem('token', token);
       this.token = window.localStorage.getItem('token')
     },
 
-    zzjl() {
+    highping() {
       window.localStorage.setItem('token', '');
-      let token = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJScgwN8dANDXYNUtJRSq0oULIyNDM3NjMwNLYw11EqLU4t8kxRsjKFMPMSc1OBWqqqsnKUagGHebUNQQAAAA.FcCkD6QfaP8bd_3MYsRD6Tp9wr9JSRFWIUuIdG5O7XxhIeyWfzGLp40_Lesx_kWMMaaskh_ba3NrTlj8-nP6OA'
-      window.localStorage.setItem('token', token);
-      this.token = window.localStorage.getItem('token')
-    },
-
-    lisi() {
-      window.localStorage.setItem('token', '');
-      let token = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJScgwN8dANDXYNUtJRSq0oULIyNDM3t7Q0MLU01VEqLU4t8kxRsjKDMPMSc1OBWnIyTZRqAZwbCQlAAAAA.tDNYSawJxFs7eYKZEcYreYVukYEpdY6pJhvzgE47Qpics4XEyGy_tXdgkJDb2afbVqJA4u1rn7VwVMi4pseRnw'
+      let token = 'eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJScgwN8dANDXYNUtJRSq0oULIyNDcwMzW0sDSy0FEqLU4t8kwBikHZeYm5qUA9GZnpGQWZeelKtQBEv-5MRgAAAA.fQIQZWTw0m2K4UMMUR9OW-G7XZjeuy5R7nEDHDqGowOhAjl0sy5E443nFEhA4qMPuUC6M3dAcoFDI2T_1QfqpA'
       window.localStorage.setItem('token', token);
       this.token = window.localStorage.getItem('token')
     }
