@@ -16,7 +16,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oa-separation?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/oa-separation?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&nullCatalogMeansCurrent=true
     username: root
     password: '0000'
 
@@ -38,7 +38,9 @@ spring:
         min-idle: 0
 
   activiti:
-    database-schema-update: true #自动创建表
-    db-history-used: true #启用历史数据表
-    history-level: full #启用历史数据级别
-    check-process-definitions: true #是否检查流程定义的正确性
+    async-executor-activate: false
+#    database-schema-update: true #自动创建表
+#    db-history-used: true #启用历史数据表
+#    history-level: full #启用历史数据级别
+#    check-process-definitions: false #是否检查流程定义的正确性
+
