@@ -52,6 +52,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if(!StringUtils.isEmpty(token)) {
             String username = JwtConfig.getUsername(token);
             if (!StringUtils.isEmpty(username)) {
+                LoginUserInfoHelper.setUserId(JwtConfig.getUserId(token));
+                LoginUserInfoHelper.setUsername(username);
                 String authString = (String) redisTemplate.opsForValue().get(username);
                 if(!StringUtils.isEmpty(authString)) {
                     List<Map> mapList = JSON.parseArray(authString, Map.class);
