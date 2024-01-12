@@ -11,6 +11,7 @@ import games.highping.service.OaProcessTemplateService;
 import games.highping.mapper.OaProcessTemplateMapper;
 import games.highping.service.OaProcessTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -26,9 +27,11 @@ import java.util.List;
 public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateMapper, OaProcessTemplate> implements OaProcessTemplateService {
 
     @Autowired
+    @Lazy
     private OaProcessTypeService oaProcessTypeService;
     @Autowired
     private OaProcessService oaProcessService;
+
 
     //分页查询审批模板，把审批类型对应名称查询
     @Override
@@ -57,10 +60,10 @@ public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateM
     @Transactional
     @Override
     public void publish(Long id) {
-        OaProcessTemplate processTemplate = this.getById(id);
+        OaProcessTemplate processTemplate = baseMapper.selectById(id);
         processTemplate.setStatus(1);
         baseMapper.updateById(processTemplate);
-
+        //流程定义部署
         if (!StringUtils.isEmpty(processTemplate.getProcessDefinitionPath())) {
             oaProcessService.deployByZip(processTemplate.getProcessDefinitionPath());
         }
