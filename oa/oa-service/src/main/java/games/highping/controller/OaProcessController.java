@@ -2,7 +2,6 @@ package games.highping.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import games.highping.bean.OaProcess;
 import games.highping.service.OaProcessService;
 import games.highping.utils.result.Result;
 import games.highping.utils.vo.ProcessQueryVo;

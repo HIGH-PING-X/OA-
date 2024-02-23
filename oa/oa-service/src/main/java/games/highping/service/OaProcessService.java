@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import games.highping.bean.OaProcess;
 import com.baomidou.mybatisplus.extension.service.IService;
+import games.highping.utils.vo.ApprovalVo;
 import games.highping.utils.vo.ProcessFormVo;
 import games.highping.utils.vo.ProcessQueryVo;
 import games.highping.utils.vo.ProcessVo;
+
+import java.util.Map;
 
 /**
 * @author HIGH-
@@ -22,4 +25,12 @@ public interface OaProcessService extends IService<OaProcess> {
     void startUp(ProcessFormVo processFormVo);
 
     Page<ProcessVo> findPending(Page<OaProcess> pageParam);
+
+    Map<String, Object> show(Long id);
+
+    void approve(ApprovalVo approvalVo);
+
+    IPage<ProcessVo> findProcessed(Page<OaProcess> pageParam);
+
+    IPage<ProcessVo> findStarted(Page<ProcessVo> pageParam);
 }
